@@ -232,8 +232,8 @@ func (z *Zmanim) Tzeit(angle float64) time.Time {
 // Rabbeinu Tam holds that bein hashmashos is a specific time between sunset and tzeis hakochavim
 // One opinion on how to calculate this time is that it is 13.5 minutes before tzies 7.083
 func (z *Zmanim) BeinHashmashos() time.Time {
-	tzeis=z.Tzeit(Tzeit3MediumStars)
-	return tzeis.Add(-13.5 *time.Minute)
+	tzeis:=z.Tzeit(Tzeit3MediumStars)
+	return tzeis.Add(-time.Duration(13.5) * time.Minute)
 }
 
 func (z *Zmanim) riseSetOffset(t time.Time, offset int, roundTime bool) time.Time {
