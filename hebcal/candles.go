@@ -243,9 +243,7 @@ func dailyZemanim(date hdate.HDate, opts *CalOptions) []event.CalEvent {
 		t    time.Time
 	}{
 		{"Alot haShachar", z.AlotHaShachar()},
-		//{"Misheyakir", z.Misheyakir()},
 		{"Misheyakir", z.MisheyakirMachmir()},
-		//{"Dawn", z.Dawn()},
 		{"Sunrise", z.Sunrise()},
 		{"Kriat Shema, sof zeman (MGA)", z.SofZmanShmaMGA()},
 		{"Kriat Shema, sof zeman (GRA)", z.SofZmanShma()},
@@ -257,9 +255,7 @@ func dailyZemanim(date hdate.HDate, opts *CalOptions) []event.CalEvent {
 		{"Plag HaMincha", z.PlagHaMincha()},
 		{"Sunset", z.Sunset()},
 		{"Bein HaShemashot", z.BeinHashmashos()},
-		//{"Dusk", z.Dusk()},
 		{"Tzeit HaKochavim", z.Tzeit(zmanim.Tzeit3MediumStars)},
-		//{"Chatzoz Halayla", z.ChatzotNight()},
 	}
 	events := make([]event.CalEvent, 0, len(times))
 	for _, zman := range times {
