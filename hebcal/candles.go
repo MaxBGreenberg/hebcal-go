@@ -22,9 +22,9 @@ import (
 	"time"
 
 	"github.com/hebcal/hdate"
-	"github.com/hebcal/hebcal-go/event"
-	"github.com/hebcal/hebcal-go/locales"
-	"github.com/hebcal/hebcal-go/zmanim"
+	"github.com/MaxBGreenberg/hebcal-go/event"
+	"github.com/MaxBGreenberg/hebcal-go/locales"
+	"github.com/MaxBGreenberg/hebcal-go/zmanim"
 )
 
 func formatTime(t *time.Time, opts *CalOptions) string {
@@ -243,8 +243,7 @@ func dailyZemanim(date hdate.HDate, opts *CalOptions) []event.CalEvent {
 		t    time.Time
 	}{
 		{"Alot haShachar", z.AlotHaShachar()},
-		{"Misheyakir", z.Misheyakir()},
-		{"Misheyakir Machmir", z.MisheyakirMachmir()},
+		{"Misheyakir", z.MisheyakirMachmir()},
 		{"Sunrise", z.Sunrise()},
 		{"Kriat Shema, sof zeman (MGA)", z.SofZmanShmaMGA()},
 		{"Kriat Shema, sof zeman (GRA)", z.SofZmanShma()},
@@ -256,7 +255,7 @@ func dailyZemanim(date hdate.HDate, opts *CalOptions) []event.CalEvent {
 		{"Plag HaMincha", z.PlagHaMincha()},
 		{"Sunset", z.Sunset()},
 		{"Bein HaShemashot", z.BeinHashmashos()},
-		{"Tzeit HaKochavim", z.Tzeit(zmanim.Tzeit3SmallStars)},
+		{"Tzeit HaKochavim", z.Tzeit(zmanim.Tzeit3MediumStars)},
 	}
 	events := make([]event.CalEvent, 0, len(times))
 	for _, zman := range times {
