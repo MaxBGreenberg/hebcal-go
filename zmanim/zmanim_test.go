@@ -90,6 +90,8 @@ func makeTestTimes(zman zmanim.Zmanim) []time.Time {
 		zman.SofZmanShmaMGA(),
 		zman.SofZmanTfilla(),
 		zman.SofZmanTfillaMGA(),
+		zman.SofZmanBiur(),
+		zman.SofZmanBiurMGA(),
 		zman.Chatzot(),
 		zman.MinchaGedola(),
 		zman.MinchaKetana(),
