@@ -181,6 +181,14 @@ func (z *Zmanim) SofZmanTfilla() time.Time {
 	return z.hourOffset(4)
 }
 
+// On Erev Pesach, the latest time to eat chametz is sunrise plus 4 halachic hours, same as sof zman tefillah
+// The latest time to have hanaa from chametz and the time by which all remaing chametz should be burned is sunrise plus 5 halachik hours
+// This is sof zman biur chametz
+// According the the Vilna Gaon
+func (z *Zmanim) SofZmanBiur() time.Time {
+	return z.hourOffset(5)
+}
+
 func (z *Zmanim) sofZmanMGA(hours float64) time.Time {
 	alot72 := z.SunriseOffset(-72, false)
 	tzeit72 := z.SunsetOffset(72, false)
@@ -198,6 +206,11 @@ func (z *Zmanim) SofZmanShmaMGA() time.Time {
 // Latest Shacharit (MGA); Sunrise plus 4 halachic hours, according to Magen Avraham
 func (z *Zmanim) SofZmanTfillaMGA() time.Time {
 	return z.sofZmanMGA(4)
+}
+
+// Sof zman biur chametz according to the magen avraham
+func (z *Zmanim) SofZmanBiurMGA() time.Time {
+	return z.sofZmanMGA(5)
 }
 
 // Earliest Mincha – Mincha Gedola; Sunrise plus 6.5 halachic hours
@@ -222,7 +235,7 @@ func (z *Zmanim) PlagHaMincha() time.Time {
 // For 3 medium stars use 7.083°
 func (z *Zmanim) Tzeit(angle float64) time.Time {
 	if angle == 0 {
-		angle = Tzeit3SmallStars
+		angle = Tzeit3MediumStars
 	}
 	return z.timeAtAngle(angle, false)
 }
@@ -237,7 +250,6 @@ func (z *Zmanim) BeinHashmashos() time.Time {
 		return tzeis
 	}
 	return tzeis.Add(ThirteenFive)
-}
 
 func (z *Zmanim) riseSetOffset(t time.Time, offset int, roundTime bool) time.Time {
 	if t.IsZero() {
