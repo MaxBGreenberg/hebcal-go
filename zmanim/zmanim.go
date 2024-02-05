@@ -185,7 +185,7 @@ func (z *Zmanim) SofZmanTfilla() time.Time {
 // The latest time to have hanaa from chametz and the time by which all remaing chametz should be burned is sunrise plus 5 halachik hours
 // This is sof zman biur chametz
 // According the the Vilna Gaon
-funct (z *Zmanim) SofZmanBiur() time.Time {
+func (z *Zmanim) SofZmanBiur() time.Time {
 	return z.hourOffset(5)
 }
 
