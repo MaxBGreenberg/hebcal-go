@@ -59,10 +59,8 @@ func New(location *Location, date time.Time) Zmanim {
 	return Zmanim{Location: location, Year: year, Month: month, Day: day, loc: loc}
 }
 
-var nilTime = time.Time{}
-
 func (z *Zmanim) inLoc(dt time.Time) time.Time {
-	if dt == nilTime {
+	if dt.IsZero() {
 		return dt
 	}
 	return dt.In(z.loc)
@@ -183,6 +181,14 @@ func (z *Zmanim) SofZmanTfilla() time.Time {
 	return z.hourOffset(4)
 }
 
+// On Erev Pesach, the latest time to eat chametz is sunrise plus 4 halachic hours, same as sof zman tefillah
+// The latest time to have hanaa from chametz and the time by which all remaing chametz should be burned is sunrise plus 5 halachik hours
+// This is sof zman biur chametz
+// According the the Vilna Gaon
+funct (z *Zmanim) SofZmanBiur() time.Time {
+	return z.hourOffset(5)
+}
+
 func (z *Zmanim) sofZmanMGA(hours float64) time.Time {
 	alot72 := z.SunriseOffset(-72, false)
 	tzeit72 := z.SunsetOffset(72, false)
@@ -200,6 +206,11 @@ func (z *Zmanim) SofZmanShmaMGA() time.Time {
 // Latest Shacharit (MGA); Sunrise plus 4 halachic hours, according to Magen Avraham
 func (z *Zmanim) SofZmanTfillaMGA() time.Time {
 	return z.sofZmanMGA(4)
+}
+
+// Sof zman biur chametz according to the magen avraham
+func (z *Zmanim) SofZmanBiurMGA() time.Time {
+	return z.sofZmanMGA(5)
 }
 
 // Earliest Mincha – Mincha Gedola; Sunrise plus 6.5 halachic hours
@@ -229,15 +240,19 @@ func (z *Zmanim) Tzeit(angle float64) time.Time {
 	return z.timeAtAngle(angle, false)
 }
 
+const ThirteenFive time.Duration = -1 * time.Duration(13.5*float64(time.Minute))
+
 // Rabbeinu Tam holds that bein hashmashos is a specific time between sunset and tzeis hakochavim
 // One opinion on how to calculate this time is that it is 13.5 minutes before tzies 7.083
 func (z *Zmanim) BeinHashmashos() time.Time {
-	tzeis:=z.Tzeit(Tzeit3MediumStars)
-	return tzeis.Add(-time.Duration(13.5 * float64(time.Minute)))
-}
+	tzeis := z.Tzeit(Tzeit3MediumStars)
+	if tzeis.IsZero() {
+		return tzeis
+	}
+	return tzeis.Add(ThirteenFive)
 
 func (z *Zmanim) riseSetOffset(t time.Time, offset int, roundTime bool) time.Time {
-	if t == nilTime {
+	if t.IsZero() {
 		return t
 	}
 	year, month, day := t.Date()
