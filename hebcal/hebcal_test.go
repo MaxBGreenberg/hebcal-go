@@ -176,18 +176,18 @@ func TestHebrewCalendarChanukahCandles(t *testing.T) {
 	assert.Equal(nil, err)
 	assert.Equal(14, len(events))
 	expected := []string{
-		"2022-12-18 Chanukah: 1 Candle: 4:56",
-		"2022-12-19 Chanukah: 2 Candles: 4:57",
-		"2022-12-20 Chanukah: 3 Candles: 4:57",
-		"2022-12-21 Chanukah: 4 Candles: 4:58",
-		"2022-12-22 Chanukah: 5 Candles: 4:58",
+		"2022-12-18 Chanukah: 1 Candle: 5:04",
+		"2022-12-19 Chanukah: 2 Candles: 5:05",
+		"2022-12-20 Chanukah: 3 Candles: 5:05",
+		"2022-12-21 Chanukah: 4 Candles: 5:06",
+		"2022-12-22 Chanukah: 5 Candles: 5:06",
 		"2022-12-23 Chanukah: 6 Candles: 4:00",
 		"2022-12-23 Candle lighting: 4:00",
 		"2022-12-24 Chag HaBanot",
 		"2022-12-24 Chanukah: 7 Candles: 5:20",
 		"2022-12-24 Rosh Chodesh Tevet",
 		"2022-12-24 Havdalah: 5:20",
-		"2022-12-25 Chanukah: 8 Candles: 5:00",
+		"2022-12-25 Chanukah: 8 Candles: 5:08",
 		"2022-12-25 Rosh Chodesh Tevet",
 		"2022-12-26 Chanukah: 8th Day",
 	}
@@ -419,6 +419,7 @@ func TestDailyZemanim(t *testing.T) {
 		"2021-11-27 Alot haShachar: 05:21",
 		"2021-11-27 Misheyakir: 05:47",
 		"2021-11-27 Misheyakir Machmir: 05:54",
+		"2021-11-27 Dawn: 06:18",
 		"2021-11-27 Sunrise: 06:49",
 		"2021-11-27 Kriat Shema, sof zeman (MGA): 08:35",
 		"2021-11-27 Kriat Shema, sof zeman (GRA): 09:11",
@@ -429,7 +430,7 @@ func TestDailyZemanim(t *testing.T) {
 		"2021-11-27 Mincha Ketanah: 14:19",
 		"2021-11-27 Plag HaMincha: 15:18",
 		"2021-11-27 Sunset: 16:17",
-		"2021-11-27 Bein HaShemashot: 16:41",
+		"2021-11-27 Dusk: 16:48",
 		"2021-11-27 Tzeit HaKochavim: 17:02",
 	}
 	assert.Equal(t, expected, actual)
@@ -557,5 +558,5 @@ func TestHebrewCalendarZmanimOnly(t *testing.T) {
 	}
 	events, err := hebcal.HebrewCalendar(&opts)
 	assert.Equal(nil, err)
-	assert.Equal(14, len(events)) // not 15 (no Alot HaShachar)
+	assert.Equal(15, len(events)) // not 16 (no Alot HaShachar)
 }

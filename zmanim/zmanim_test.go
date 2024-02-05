@@ -20,6 +20,7 @@ func TestZmanimChicago(t *testing.T) {
 		"Fri, 05 Jun 2020 03:25:34 -0500",
 		"Fri, 05 Jun 2020 04:03:11 -0500",
 		"Fri, 05 Jun 2020 04:12:55 -0500",
+		"Fri, 05 Jun 2020 04:42:37 -0500",
 		"Fri, 05 Jun 2020 05:16:28 -0500",
 		"Fri, 05 Jun 2020 09:02:54 -0500",
 		"Fri, 05 Jun 2020 08:26:54 -0500",
@@ -30,11 +31,29 @@ func TestZmanimChicago(t *testing.T) {
 		"Fri, 05 Jun 2020 17:13:32 -0500",
 		"Fri, 05 Jun 2020 18:47:53 -0500",
 		"Fri, 05 Jun 2020 20:22:15 -0500",
-		"Fri, 05 Jun 2020 20:50:02 -0500",
-		"Fri, 05 Jun 2020 21:03:32 -0500",
+		"Fri, 05 Jun 2020 20:56:06 -0500",
 		"Fri, 05 Jun 2020 21:13:28 -0500",
 	}
-	times := makeTestTimes(zman)
+	times := []time.Time{
+		zman.GregEve(),
+		zman.ChatzotNight(),
+		zman.AlotHaShachar(),
+		zman.Misheyakir(),
+		zman.MisheyakirMachmir(),
+		zman.Dawn(),
+		zman.Sunrise(),
+		zman.SofZmanShma(),
+		zman.SofZmanShmaMGA(),
+		zman.SofZmanTfilla(),
+		zman.SofZmanTfillaMGA(),
+		zman.Chatzot(),
+		zman.MinchaGedola(),
+		zman.MinchaKetana(),
+		zman.PlagHaMincha(),
+		zman.Sunset(),
+		zman.Dusk(),
+		zman.Tzeit(8.5),
+	}
 	actual := make([]string, 18)
 	for idx, t := range times {
 		actual[idx] = t.Format(time.RFC1123Z)
@@ -56,6 +75,7 @@ func TestZmanimTelAviv(t *testing.T) {
 		"Sat, 06 Mar 2021 04:50:19 +0200",
 		"Sat, 06 Mar 2021 05:12:02 +0200",
 		"Sat, 06 Mar 2021 05:18:11 +0200",
+		"Sat, 06 Mar 2021 05:38:01 +0200",
 		"Sat, 06 Mar 2021 06:02:30 +0200",
 		"Sat, 06 Mar 2021 08:57:23 +0200",
 		"Sat, 06 Mar 2021 08:21:23 +0200",
@@ -66,42 +86,34 @@ func TestZmanimTelAviv(t *testing.T) {
 		"Sat, 06 Mar 2021 15:16:20 +0200",
 		"Sat, 06 Mar 2021 16:29:12 +0200",
 		"Sat, 06 Mar 2021 17:42:05 +0200",
-		"Sat, 06 Mar 2021 17:58:11 +0200",
-		"Sat, 06 Mar 2021 18:11:41 +0200",
+		"Sat, 06 Mar 2021 18:06:34 +0200",
 		"Sat, 06 Mar 2021 18:18:23 +0200",
 	}
-	times := makeTestTimes(zman)
-	actual := make([]string, 18)
-	for idx, t := range times {
-		actual[idx] = t.Format(time.RFC1123Z)
-	}
-	assert.Equal(expected, actual)
-}
-
-func makeTestTimes(zman zmanim.Zmanim) []time.Time {
 	times := []time.Time{
 		zman.GregEve(),
 		zman.ChatzotNight(),
 		zman.AlotHaShachar(),
 		zman.Misheyakir(),
 		zman.MisheyakirMachmir(),
+		zman.Dawn(),
 		zman.Sunrise(),
 		zman.SofZmanShma(),
 		zman.SofZmanShmaMGA(),
 		zman.SofZmanTfilla(),
 		zman.SofZmanTfillaMGA(),
-		zman.SofZmanBiur(),
-		zman.SofZmanBiurMGA(),
 		zman.Chatzot(),
 		zman.MinchaGedola(),
 		zman.MinchaKetana(),
 		zman.PlagHaMincha(),
 		zman.Sunset(),
-		zman.BeinHashmashos(),
-		zman.Tzeit(7.083),
+		zman.Dusk(),
 		zman.Tzeit(8.5),
 	}
-	return times
+	actual := make([]string, 18)
+	for idx, t := range times {
+		actual[idx] = t.Format(time.RFC1123Z)
+	}
+	assert.Equal(expected, actual)
 }
 
 func TestZmanimHelsinki(t *testing.T) {
@@ -133,7 +145,7 @@ func TestZmanimHelsinki(t *testing.T) {
 		} else {
 			t = zman.Tzeit(8.5)
 		}
-		if t.IsZero() {
+		if (t == time.Time{}) {
 			actual[idx] = "undefined"
 		} else {
 			actual[idx] = t.Format(time.RFC1123Z)
@@ -163,6 +175,15 @@ func ExampleZmanim_SunsetOffset() {
 	// Output:
 	// 2020-06-05 20:04:00 -0500 CDT
 	// 2020-06-05 21:12:00 -0500 CDT
+}
+
+func ExampleZmanim_Dusk() {
+	dt := time.Date(2022, time.December, 24, 12, 0, 0, 0, time.UTC)
+	location := zmanim.NewLocation("Amund Ringnes Island", "CA", 78.305499, -96.917471, "America/Regina")
+	zman := zmanim.New(&location, dt)
+	dusk := zman.Dusk()
+	fmt.Println(dusk)
+	// Output: 0001-01-01 00:00:00 +0000 UTC
 }
 
 func TestZmanimAmsterdam(t *testing.T) {

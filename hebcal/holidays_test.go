@@ -317,12 +317,11 @@ func TestModernFriSatMovetoThu(t *testing.T) {
 }
 
 func TestBirkatHachamah(t *testing.T) {
-	const birkatHachamah = "Birkat Hachamah"
 	actual := make([]int, 0, 10)
 	for year := 5650; year < 5920; year++ {
 		events := hebcal.GetHolidaysForYear(year, false)
 		for _, ev := range events {
-			if ev.Desc == birkatHachamah {
+			if ev.Desc == "Birkat Hachamah" {
 				actual = append(actual, year)
 			}
 		}
@@ -333,7 +332,7 @@ func TestBirkatHachamah(t *testing.T) {
 	events := hebcal.GetHolidaysForYear(5965, false)
 	var hd hdate.HDate
 	for _, ev := range events {
-		if ev.Desc == birkatHachamah {
+		if ev.Desc == "Birkat Hachamah" {
 			hd = ev.Date
 		}
 	}
@@ -342,7 +341,7 @@ func TestBirkatHachamah(t *testing.T) {
 	hd = hdate.HDate{}
 	events = hebcal.GetHolidaysForYear(5993, false)
 	for _, ev := range events {
-		if ev.Desc == birkatHachamah {
+		if ev.Desc == "Birkat Hachamah" {
 			hd = ev.Date
 		}
 	}
